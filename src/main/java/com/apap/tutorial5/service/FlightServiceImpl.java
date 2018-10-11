@@ -39,9 +39,13 @@ public class FlightServiceImpl implements FlightService {
 	public FlightModel getByFlightNumber(String flightNumber) {
 		return flightDb.findByFlightNumber(flightNumber);
 	}
-	 @Override
-	    public FlightModel getFlightById(Long id) {
-	        return flightDb.getOne(id);
-	    }
+	@Override
+	public void deleteFlightById(String flightNumber) {
+		FlightModel flight = flightDb.findByFlightNumber(flightNumber);
+		flightDb.delete(flight);
+		
+	}
+
+
 
 }

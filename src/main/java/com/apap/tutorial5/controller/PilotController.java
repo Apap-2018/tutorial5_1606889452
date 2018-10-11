@@ -30,7 +30,6 @@ public class PilotController {
 		model.addAttribute("title", "APAP");
 		return "home";
 	}
-	
 	@RequestMapping(value = "/pilot/add", method = RequestMethod.GET)
 	private String add (Model model) {
 		model.addAttribute("pilot", new PilotModel());
@@ -41,21 +40,20 @@ public class PilotController {
 		pilotService.addPilot(pilot);
 		return "add";
 	}
-	@RequestMapping(value = "/pilot/view", method = RequestMethod.GET)
-    private String viewPilot(@RequestParam(value = "licenseNumber") String licenseNumber, Model model) {
-        PilotModel pilot = pilotService.getPilotDetailByLicenseNumber(licenseNumber);
-        model.addAttribute("pilot", pilot);
-        return "view-pilot";
-    }
-
-	@RequestMapping(value = "/flight/delete", method = RequestMethod.POST)
-    private String deleteFlight(@ModelAttribute PilotModel pilot) {
-        for(FlightModel flight : pilot.getPilotFlight()) {
-            flightService.deleteFlight(flight);
-        }
-
-        return "delete";
-    }
+	@RequestMapping(value="/pilot/view", method = RequestMethod.GET)
+	private String view (@RequestParam String licenseNumber, Model model) {
+		PilotModel pilot = pilotService.getPilotDetailByLicenseNumber(licenseNumber);
+		List<FlightModel> listFlight = pilot.getPilotFlight();
+		model.addAttribute("pilot", pilot);
+		model.addAttribute("listFlight", listFlight);
+		return "view-pilot";
+	}
+	
+	@RequestMapping(value="/pilot/delete/{licenseNumber}", method = RequestMethod.GET)
+	private String deletePilot (@PathVariable(value = "licenseNumber") String licenseNumber) {
+		pilotService.deletePilot(pilotService.getPilotDetailByLicenseNumber(licenseNumber));
+		return "delete";
+	}
 	@RequestMapping(value = "/pilot/update/{licenseNumber}", method = RequestMethod.GET)
 	private String update (@PathVariable(value = "licenseNumber") String licenseNumber, Model model) {
 		model.addAttribute("old-pilot", pilotService.getPilotDetailByLicenseNumber(licenseNumber));

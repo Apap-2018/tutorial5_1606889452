@@ -7,6 +7,5 @@ public interface FlightService {
 	void deleteFlight(FlightModel flight);
 	FlightModel getByFlightNumber(String flightNumber);
 	void updateFlight(FlightModel flight, String flightNumber);
-	FlightModel getFlightById(Long id);
-	
+	void deleteFlightById(String flightNumber);
 }
