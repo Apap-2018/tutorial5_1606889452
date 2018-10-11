@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.themeleaf.org">
+	<head>
+		<title>View Flight</title>
+		<object th:include="fragments/fragment :: css"></object>
+   		<object th:include="fragments/fragment :: js"></object>
+		
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar(title='View Flight')"></nav>
+	
+		<h3 th:text="'Flight Number: ' + ${flight.flightNumber}"></h3>
+		<h3 th:text="'Origin: ' + ${flight.origin}"></h3>
+		<h3 th:text="'Destination: ' + ${flight.destination}"></h3>
+		<h3 th:text="'Time: ' + ${flight.time}"></h3>
+		
+		<a th:href="@{/flight/delete/{flightNumber}(flightNumber=${flight.flightNumber})}">Delete Flight</a> 
+		<a th:href="@{/flight/update/{flightNumber}(flightNumber=${flight.flightNumber})}">Update Flight</a>
+		
+		<h2>Oleh pilot</h2>
+		
+		<h3 th:text="'Pilot License Number : ' + ${pilot.licenseNumber}"></h3>
+		<h3 th:text="'Name : ' + ${pilot.name}"></h3>
+		<h3 th:text="'Fly Hour : ' + ${pilot.flyHour}"></h3>
+	 	
+	</body>
+</html>
